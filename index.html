@@ -7,10 +7,8 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <main class="app">
     <div class="card">
-
       <div class="header">
         <img src="banner.jpg" alt="Banner" class="banner">
         <h1>Sube tu foto</h1>
@@ -18,14 +16,13 @@
       </div>
 
       <form id="photoForm" class="form">
-
         <div class="form-group">
-          <label>Nombre</label>
+          <label for="nombre">Nombre</label>
           <input type="text" id="nombre" placeholder="Escribe tu nombre completo" required>
         </div>
 
         <div class="form-group">
-          <label>País</label>
+          <label for="pais">País</label>
           <select id="pais" required>
             <option value="">Selecciona tu país</option>
             <option>Argentina</option>
@@ -42,24 +39,22 @@
         </div>
 
         <div class="form-group">
-          <label>Foto</label>
-          <input type="file" id="foto" accept="image/png, image/jpeg" required>
+          <label for="foto">Foto</label>
+          <input type="file" id="foto" accept="image/png, image/jpeg, image/jpg" required>
         </div>
 
         <div id="previewContainer" class="preview hidden">
           <p>Vista previa:</p>
-          <img id="previewImage">
+          <img id="previewImage" alt="Vista previa de la foto">
         </div>
 
         <button type="submit" id="submitBtn">Enviar</button>
 
         <p id="mensaje"></p>
-
       </form>
     </div>
   </main>
 
   <script src="app.js"></script>
-
 </body>
 </html>
