@@ -1,0 +1,76 @@
+body {
+  font-family: Arial;
+  background: #f4f6fb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.app {
+  width: 100%;
+  max-width: 400px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.header {
+  text-align: center;
+}
+
+.banner {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+h1 {
+  margin: 10px 0;
+}
+
+.form-group {
+  margin: 15px 0;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+.preview img {
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+#mensaje {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: bold;
+}
