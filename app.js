@@ -5,7 +5,6 @@ const previewImage = document.getElementById("previewImage");
 const mensaje = document.getElementById("mensaje");
 const submitBtn = document.getElementById("submitBtn");
 
-// 👉 PEGA TU URL AQUÍ
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby5xVzGzQKCgf_u9hloe7LMR60cRJxkSkqib5VaUp1nQ9u3OYffUzkvo4RgygS8w7aM/exec";
 
 function mostrarMensaje(texto) {
@@ -23,7 +22,6 @@ function fileToBase64(file) {
 
 fotoInput.addEventListener("change", () => {
   const file = fotoInput.files[0];
-
   if (!file) return;
 
   const reader = new FileReader();
@@ -37,8 +35,8 @@ fotoInput.addEventListener("change", () => {
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const nombre = document.getElementById("nombre").value;
-  const pais = document.getElementById("pais").value;
+  const nombre = document.getElementById("nombre").value.trim();
+  const pais = document.getElementById("pais").value.trim();
   const foto = fotoInput.files[0];
 
   if (!nombre || !pais || !foto) {
@@ -64,16 +62,20 @@ form.addEventListener("submit", async (e) => {
     });
 
     const result = await response.json();
+    console.log("Respuesta Apps Script:", result);
 
     if (result.success) {
       mostrarMensaje("Foto enviada correctamente");
       form.reset();
       previewContainer.classList.add("hidden");
+      previewImage.src = "";
     } else {
-      mostrarMensaje("Error al enviar");
+      mostrarMensaje(result.message || result.error || "Error al enviar");
+      console.error("Error Apps Script:", result);
     }
 
   } catch (error) {
+    console.error("Error fetch:", error);
     mostrarMensaje("Error de conexión");
   }
 
