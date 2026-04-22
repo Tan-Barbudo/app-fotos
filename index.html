@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sube tu foto</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main class="app">
+    <div class="card">
+
+      <div class="header">
+        <img src="banner.jpg" alt="Banner" class="banner">
+        <h1>Sube tu foto</h1>
+        <p>Completa tus datos y envía tu foto fácilmente</p>
+      </div>
+
+      <form id="photoForm" class="form">
+
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" id="nombre" placeholder="Escribe tu nombre completo" required>
+        </div>
+
+        <div class="form-group">
+          <label>País</label>
+          <select id="pais" required>
+            <option value="">Selecciona tu país</option>
+            <option>Argentina</option>
+            <option>Bolivia</option>
+            <option>Brasil</option>
+            <option>Chile</option>
+            <option>Colombia</option>
+            <option>México</option>
+            <option>Perú</option>
+            <option>Uruguay</option>
+            <option>Venezuela</option>
+            <option>Otro</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Foto</label>
+          <input type="file" id="foto" accept="image/png, image/jpeg" required>
+        </div>
+
+        <div id="previewContainer" class="preview hidden">
+          <p>Vista previa:</p>
+          <img id="previewImage">
+        </div>
+
+        <button type="submit" id="submitBtn">Enviar</button>
+
+        <p id="mensaje"></p>
+
+      </form>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+
+</body>
+</html>
