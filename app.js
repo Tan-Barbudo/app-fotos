@@ -6,27 +6,61 @@ const mensaje = document.getElementById("mensaje");
 const submitBtn = document.getElementById("submitBtn");
 
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw36ho_ZiBIsADtLZAyoICcaCEsdpL2IZ4SJve4Nf9DbN3TH7WHkaOcyPe2uNHJI55M/exec";
-function mostrarMensaje(texto) {
+
+function mostrarMensaje(texto, tipo = "") {
   mensaje.textContent = texto;
+  mensaje.className = "";
+  if (tipo) {
+    mensaje.classList.add(tipo);
+  }
 }
 
 function fileToBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => resolve(reader.result);
-    reader.onerror = reject;
+    reader.onerror = () => reject(new Error("No se pudo leer la imagen"));
     reader.readAsDataURL(file);
   });
 }
 
+function validarArchivo(file) {
+  if (!file) {
+    return "Debes seleccionar una foto.";
+  }
+
+  const tiposPermitidos = ["image/jpeg", "image/jpg", "image/png"];
+  const maxSizeMB = 5;
+  const maxSizeBytes = maxSizeMB * 1024 * 1024;
+
+  if (!tiposPermitidos.includes(file.type)) {
+    return "Solo se permiten archivos JPG, JPEG o PNG.";
+  }
+
+  if (file.size > maxSizeBytes) {
+    return "La foto no debe superar los 5 MB.";
+  }
+
+  return null;
+}
+
 fotoInput.addEventListener("change", () => {
   const file = fotoInput.files[0];
-  if (!file) return;
+  const error = validarArchivo(file);
+
+  if (error) {
+    mostrarMensaje(error, "error");
+    fotoInput.value = "";
+    previewImage.src = "";
+    previewContainer.classList.add("hidden");
+    return;
+  }
 
   const reader = new FileReader();
   reader.onload = (e) => {
     previewImage.src = e.target.result;
     previewContainer.classList.remove("hidden");
+    mostrarMensaje("");
   };
   reader.readAsDataURL(file);
 });
@@ -39,12 +73,18 @@ form.addEventListener("submit", async (e) => {
   const foto = fotoInput.files[0];
 
   if (!nombre || !pais || !foto) {
-    mostrarMensaje("Completa todos los campos");
+    mostrarMensaje("Completa todos los campos.", "error");
+    return;
+  }
+
+  const errorArchivo = validarArchivo(foto);
+  if (errorArchivo) {
+    mostrarMensaje(errorArchivo, "error");
     return;
   }
 
   submitBtn.disabled = true;
-  mostrarMensaje("Enviando...");
+  mostrarMensaje("Enviando foto...", "info");
 
   try {
     const imageBase64 = await fileToBase64(foto);
@@ -61,22 +101,20 @@ form.addEventListener("submit", async (e) => {
     });
 
     const result = await response.json();
-    console.log("Respuesta Apps Script:", result);
+    console.log("Respuesta del script:", result);
 
     if (result.success) {
-      mostrarMensaje("Foto enviada correctamente");
+      mostrarMensaje("Foto enviada correctamente.", "success");
       form.reset();
-      previewContainer.classList.add("hidden");
       previewImage.src = "";
+      previewContainer.classList.add("hidden");
     } else {
-      mostrarMensaje(result.message || result.error || "Error al enviar");
-      console.error("Error Apps Script:", result);
+      mostrarMensaje(result.message || "Error al enviar la foto.", "error");
     }
-
   } catch (error) {
-    console.error("Error fetch:", error);
-    mostrarMensaje("Error de conexión");
+    console.error("Error:", error);
+    mostrarMensaje("Error de conexión. Intenta nuevamente.", "error");
+  } finally {
+    submitBtn.disabled = false;
   }
-
-  submitBtn.disabled = false;
 });
