@@ -6,7 +6,7 @@ const mensaje = document.getElementById("mensaje");
 const submitBtn = document.getElementById("submitBtn");
 
 // 👉 PEGA TU URL AQUÍ
-const SCRIPT_URL = "https://sube-tu-foto.netlify.app/";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzH6U0sxE27hP-5DBoACyZahM7Yo66Fl0yP9sxIr5kilKmhxeBCwlxDqNmKtbJl0tOs/exec";
 
 function mostrarMensaje(texto) {
   mensaje.textContent = texto;
