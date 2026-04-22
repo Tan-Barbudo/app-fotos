@@ -5,7 +5,7 @@ const previewImage = document.getElementById("previewImage");
 const mensaje = document.getElementById("mensaje");
 const submitBtn = document.getElementById("submitBtn");
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwR2VrADt4UYDvEjAYi8njP0yJ7JCcJcmaqPWaw36BIr57Z3NVVRa1Di7HXBdIT0G4/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzIpPD4PI0s_jJjnA3wIpjhIGjH0mAh0sVwus2LtoAWOwpzsKPO5nAgnoXBLE03y7l9/exec";
 
 function mostrarMensaje(texto, tipo = "") {
   mensaje.textContent = texto;
